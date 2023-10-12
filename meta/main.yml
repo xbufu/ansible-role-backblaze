@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  role_name: backblaze
+  author: xbufu
+  description: SMB backup via Backblaze.
+  company: Bufu-Security
+  license: license (BSD, MIT)
+  min_ansible_version: "2.1"
+  platforms:
+    - name: Windows
+      versions:
+        - '10'
+        - '11'
+
+  galaxy_tags:
+    - system
+    - development
+    - devops
+    - backup
+    - smb
+    - backblaze
+    - cloud

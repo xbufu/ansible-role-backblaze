@@ -1,0 +1,16 @@
+---
+- name: Wait until Dokany is installed
+  ansible.windows.win_wait_for:
+    path: C:\Program Files\Dokan
+    timeout: 600
+
+- name: Get Dokany installation directory
+  ansible.windows.win_find:
+    paths: C:\Program Files\Dokan
+    file_type: directory
+    patterns: 'DokanLibrary*'
+  register: dokany_dir
+
+- name: Set Dokany mirror path
+  ansible.builtin.set_fact:
+    dokany_mirror_path: '{{ dokany_dir.files[0]["path"] }}\sample\mirror\mirror.exe'

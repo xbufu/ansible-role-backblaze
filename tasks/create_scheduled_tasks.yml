@@ -1,0 +1,37 @@
+---
+- name: Create TrueNAS credential
+  community.windows.win_credential:
+    name: '{{ smb_host }}'
+    type: generic_password
+    username: '{{ smb_username }}'
+    secret: '{{ smb_password }}'
+    state: present
+  become: true
+
+- name: Create scheduled tasks to mount SMB shares
+  community.windows.win_scheduled_task:
+    enabled: true
+    state: present
+    name: Mount {{ share.name }} SMB share
+    description: Mount {{ share.name }} SMB share for Backblaze
+    username: '{{ ansible_env.USERDOMAIN }}\{{ ansible_user }}'
+    password: '{{ ansible_password }}'
+    logon_type: password
+    run_level: highest
+    actions:
+      - path: '{{ dokany_mirror_path }}'
+        arguments: /r \\{{ smb_host }}\{{ share.name }} /l {{ share.drive_letter }}
+    triggers:
+      - type: boot
+    wake_to_run: true
+    allow_demand_start: true
+    disallow_start_if_on_batteries: false
+    execution_time_limit: PT0S
+    restart_count: 1440
+    restart_interval: P0Y0M0DT0H1M0S
+    start_when_available: true
+    run_only_if_idle: false
+    stop_if_going_on_batteries: false
+  loop: "{{ shares }}"
+  loop_control:
+    loop_var: share

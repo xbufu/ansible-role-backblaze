@@ -1,0 +1,12 @@
+---
+- name: Download setup files for Backblaze and Dokany
+  ansible.builtin.include_tasks: download_setup_files.yml
+
+- name: Wait for Dokany to be installed by user
+  ansible.builtin.include_tasks: wait_for_dokany.yml
+
+- name: Add exclusions for Defender
+  ansible.builtin.include_tasks: defender_exclusions.yml
+
+- name: Create scheduled tasks for mounting SMB shares
+  ansible.builtin.include_tasks: create_scheduled_tasks.yml

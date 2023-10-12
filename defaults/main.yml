@@ -1,0 +1,11 @@
+---
+smb_host: truenas01.mgmt.bufu-sec.com
+smb_username: user
+smb_password: Password!
+shares:
+  - name: tank
+    drive_letter: 'z'
+defender_exclusions:
+  - 'Z:\'
+  - '\\10.10.10.9\*'
+  - '\\10.10.10.9\tank\*'

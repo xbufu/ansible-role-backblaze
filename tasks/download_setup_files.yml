@@ -1,0 +1,18 @@
+---
+# - name: Get latest Dokany release
+#   community.general.github_release:
+#     user: dokan-dev
+#     repo: dokany
+#     action: latest_release
+#   register: release
+#   delegate_to: localhost
+
+- name: Download latest Dokany release
+  ansible.windows.win_get_url:
+    url: https://github.com/dokan-dev/dokany/releases/download/v2.0.6.1000/Dokan_x64.msi
+    dest: '{{ ansible_env.HOMEPATH }}\Desktop\Dokan_x64.msi'
+
+- name: Download Backblaze
+  ansible.windows.win_get_url:
+    url: https://secure.backblaze.com/win32/install_backblaze.exe
+    dest: '{{ ansible_env.HOMEPATH }}\Desktop\install_backblaze.exe'

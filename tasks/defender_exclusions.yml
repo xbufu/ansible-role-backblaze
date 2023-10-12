@@ -1,0 +1,8 @@
+---
+- name: Add exclusions for Defender
+  ansible.windows.win_powershell:
+    script: |
+      Add-MpPreference -ExclusionPath "{{ exclusion }}"
+  loop: '{{ defender_exclusions }}'
+  loop_control:
+    loop_var: exclusion
