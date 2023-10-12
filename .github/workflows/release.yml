@@ -52,6 +52,8 @@ jobs:
         with:
           name: latest
           tag: latest
+          allowUpdates: true
+          makeLatest: true
           token: ${{ SECRETS.RELEASE_TOKEN }}
 
       - name: Set up Python 3.
